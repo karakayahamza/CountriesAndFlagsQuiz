@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GuessFlag">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:gravity="center"
+       android:orientation="vertical">
+
+       <ImageView
+           android:id="@+id/imageView"
+           android:layout_width="250dp"
+           android:layout_height="150dp"
+           android:src="@drawable/ic_launcher_foreground"
+           android:layout_marginBottom="100dp"
+           />
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+          <Button
+              android:layout_width="250dp"
+              android:layout_height="50dp"
+              android:text="A"
+              />
+          <Button
+              android:layout_width="250dp"
+              android:layout_height="50dp"
+              android:text="B"/>
+
+          <Button
+              android:layout_width="250dp"
+              android:layout_height="50dp"
+              android:text="C"
+              />
+          <Button
+              android:layout_width="250dp"
+              android:layout_height="50dp"
+              android:text="E"
+              />
+      </LinearLayout>
+   </LinearLayout>
+</FrameLayout>

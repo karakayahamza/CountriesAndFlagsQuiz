@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreen">
+
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="com.example.countriesandflagsquiz.MainScreen"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreen_to_guessFlag"
+            app:destination="@id/guessFlag" />
+    </fragment>
+    <fragment
+        android:id="@+id/guessFlag"
+        android:name="com.example.countriesandflagsquiz.GuessFlag"
+        android:label="fragment_guess_flag"
+        tools:layout="@layout/fragment_guess_flag" />
+</navigation>

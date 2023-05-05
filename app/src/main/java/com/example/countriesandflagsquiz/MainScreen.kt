@@ -6,10 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.work.*
+import com.example.countriesandflagsquiz.databinding.FragmentMainScreenBinding
+import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 import java.util.concurrent.TimeUnit
 
 class MainScreen : Fragment() {
+    private var _binding: FragmentMainScreenBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var viewModel: CountriesAndFlagsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -18,45 +24,27 @@ class MainScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+        val view = binding.root
         // Inflate the layout for this fragment
-        val data = Data.Builder().putInt("intKey",1).build()
 
-        val constraints = Constraints.Builder()
-            //.setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresCharging(false)
-            .build()
+        viewModel = ViewModelProviders.of(this)[CountriesAndFlagsViewModel::class.java]
 
-        val myWorkRequest : PeriodicWorkRequest = PeriodicWorkRequestBuilder<WorkManagerRefreshData>(15,TimeUnit.MINUTES)
-            .setConstraints(constraints)
-            .setInputData(data)
-            .build()
+        viewModel.loadData()
 
-        WorkManager.getInstance(requireContext()).enqueue(myWorkRequest)
+        viewModel.countriesAndFlags.observe(viewLifecycleOwner) { counrty ->
+            counrty.let {
 
-        WorkManager.getInstance(requireContext()).getWorkInfoByIdLiveData(myWorkRequest.id).observe(viewLifecycleOwner,
-            Observer {
-                if (it.state == WorkInfo.State.RUNNING){
-                    println("Running...")
-                }
-                else if (it.state == WorkInfo.State.FAILED){
-                    println("Failed...")
-                }
-                else if (it.state == WorkInfo.State.SUCCEEDED){
-                    println("Succeesed.")
-                }
-            })
+                println("Merhaba")
+                println(it!!.data[0].name)
 
-        //WorkManager.getInstance(this.requireContext()).cancelAllWork()
+            }
+        }
 
-        //Chaining
-        val oneTimeWorkRequest : OneTimeWorkRequest = OneTimeWorkRequestBuilder<WorkManagerRefreshData>()
-            .setConstraints(constraints)
-            .setInputData(data)
-            .build()
-        WorkManager.getInstance(requireContext()).beginWith(oneTimeWorkRequest)
-            .then(oneTimeWorkRequest)
-            .then(oneTimeWorkRequest)
-            .enqueue()
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
+        binding.guessFlag.setOnClickListener {
+            println("Clicked button.")
+        }
+
+        return view
     }
 }
