@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreen">
-
+    tools:context=".views.MainScreen"
+    android:background="#F1F6F9"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -17,18 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal"
         >
-
-
-
         <TextView
             android:id="@+id/score"
             android:layout_height="50dp"
             android:layout_width="match_parent"
-            android:text="Score: 25"
+            android:text="Max Score: 25"
             android:textSize="35dp"
+            android:textColor="@color/white"
+            android:background="#212A3E"
             />
-
-
     </LinearLayout>
 
     <GridLayout
@@ -40,7 +38,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:background="#212A3E"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
@@ -50,7 +50,8 @@
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#394867">
 
             <Button
                 android:id="@+id/guess_flag"
@@ -78,7 +79,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#394867"
+            >
 
             <Button
                 android:id="@+id/find_capital_city"
@@ -106,7 +109,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#394867"
+            >
 
             <Button
                 android:id="@+id/guess_city_which_country"
@@ -118,12 +123,14 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="Guess Guess Population"
+                android:text="Which country?"
                 android:textColor="#EEE3AF"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="118dp" />
+                tools:layout_editor_absoluteY="118dp"
+
+                />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -134,29 +141,20 @@
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#394867"
+            >
 
-            <Button
-                android:id="@+id/angry_btn2"
+            <ImageButton
+                android:id="@+id/settings"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
+                android:src="@drawable/settingsicon"
+                android:scaleType="fitCenter"
                 android:layout_gravity="center"
                 android:background="@drawable/buttun_design"
-                android:shadowColor="#000000"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Settings"
-                android:textColor="#EEE3AF"
-                android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="118dp" />
+                android:padding="20dp"
+                />
         </androidx.cardview.widget.CardView>
-
-
-
     </GridLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.apis
+package com.example.countriesandflagsquiz.data.api
 
 import com.example.countriesandflagsquiz.models.CountriesAndFlagsModel
 import retrofit2.http.GET

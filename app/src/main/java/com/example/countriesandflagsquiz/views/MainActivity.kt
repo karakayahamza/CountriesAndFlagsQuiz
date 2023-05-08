@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz
+package com.example.countriesandflagsquiz.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

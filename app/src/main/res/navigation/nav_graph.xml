@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.example.countriesandflagsquiz.MainScreen"
+        android:name="com.example.countriesandflagsquiz.views.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -17,22 +17,30 @@
             android:id="@+id/action_mainScreen_to_guessCapitalOfCity"
             app:destination="@id/guessCapitalOfCity" />
         <action
-            android:id="@+id/action_mainScreen_to_populationGuess"
-            app:destination="@id/populationGuess" />
+            android:id="@+id/action_mainScreen_to_whichCountry"
+            app:destination="@id/whichCountry" />
+        <action
+            android:id="@+id/action_mainScreen_to_settings2"
+            app:destination="@id/settings2" />
     </fragment>
     <fragment
         android:id="@+id/guessFlag"
-        android:name="com.example.countriesandflagsquiz.GuessFlag"
+        android:name="com.example.countriesandflagsquiz.views.GuessFlag"
         android:label="fragment_guess_flag"
         tools:layout="@layout/fragment_guess_flag" />
     <fragment
         android:id="@+id/guessCapitalOfCity"
-        android:name="com.example.countriesandflagsquiz.GuessCapitalOfCity"
+        android:name="com.example.countriesandflagsquiz.views.GuessCapitalOfCity"
         android:label="fragment_guess_capital_of_city"
         tools:layout="@layout/fragment_guess_capital_of_city" />
     <fragment
-        android:id="@+id/populationGuess"
-        android:name="com.example.countriesandflagsquiz.PopulationGuess"
-        android:label="fragment_population_guess"
-        tools:layout="@layout/fragment_population_guess" />
+        android:id="@+id/whichCountry"
+        android:name="com.example.countriesandflagsquiz.views.WhichCountry"
+        android:label="fragment_which_country"
+        tools:layout="@layout/fragment_which_country" />
+    <fragment
+        android:id="@+id/settings2"
+        android:name="com.example.countriesandflagsquiz.views.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
