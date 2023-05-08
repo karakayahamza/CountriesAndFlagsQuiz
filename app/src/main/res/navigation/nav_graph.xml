@@ -13,10 +13,26 @@
         <action
             android:id="@+id/action_mainScreen_to_guessFlag"
             app:destination="@id/guessFlag" />
+        <action
+            android:id="@+id/action_mainScreen_to_guessCapitalOfCity"
+            app:destination="@id/guessCapitalOfCity" />
+        <action
+            android:id="@+id/action_mainScreen_to_populationGuess"
+            app:destination="@id/populationGuess" />
     </fragment>
     <fragment
         android:id="@+id/guessFlag"
         android:name="com.example.countriesandflagsquiz.GuessFlag"
         android:label="fragment_guess_flag"
         tools:layout="@layout/fragment_guess_flag" />
+    <fragment
+        android:id="@+id/guessCapitalOfCity"
+        android:name="com.example.countriesandflagsquiz.GuessCapitalOfCity"
+        android:label="fragment_guess_capital_of_city"
+        tools:layout="@layout/fragment_guess_capital_of_city" />
+    <fragment
+        android:id="@+id/populationGuess"
+        android:name="com.example.countriesandflagsquiz.PopulationGuess"
+        android:label="fragment_population_guess"
+        tools:layout="@layout/fragment_population_guess" />
 </navigation>

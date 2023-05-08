@@ -6,25 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainScreen">
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        >
+
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Settings"
-            android:textColor="@color/black"
-            android:textSize="24dp"/>
+            android:id="@+id/score"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:text="Score: 25"
+            android:textSize="35dp"
+            />
+
 
     </LinearLayout>
-
 
     <GridLayout
         android:id="@+id/gridLayout"
@@ -32,7 +37,6 @@
         android:layout_height="0dp"
         android:columnCount="2"
         android:rowCount="3"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +90,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="Guess Flag"
+                android:text="Guess Capitol of City"
                 android:textColor="#EEE3AF"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +118,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="Guess Flag"
+                android:text="Guess Guess Population"
                 android:textColor="#EEE3AF"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +146,7 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="Guess Flag"
+                android:text="Settings"
                 android:textColor="#EEE3AF"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -150,61 +154,7 @@
                 tools:layout_editor_absoluteY="118dp" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
 
-            <Button
-                android:id="@+id/angry_btn3"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/buttun_design"
-                android:shadowColor="#000000"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Guess Flag"
-                android:textColor="#EEE3AF"
-                android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="118dp" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
-
-            <Button
-                android:id="@+id/angry_btn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/buttun_design"
-                android:shadowColor="#000000"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Guess Flag"
-                android:textColor="#EEE3AF"
-                android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="118dp" />
-        </androidx.cardview.widget.CardView>
 
     </GridLayout>
 
