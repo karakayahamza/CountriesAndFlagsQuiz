@@ -69,7 +69,6 @@
             app:cardElevation="0dp"
             app:cardBackgroundColor="#FFFFFF"
             >
-
             <Button
                 android:id="@+id/guess_flag"
                 android:layout_width="match_parent"
