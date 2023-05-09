@@ -1,7 +1,7 @@
 package com.example.countriesandflagsquiz.data.entities
 
 import com.example.countriesandflagsquiz.data.api.CountryAndFlagsApi
-import com.example.countriesandflagsquiz.models.CountriesAndFlagsModel
+import com.example.countriesandflagsquiz.models.CountriesFlagsModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
         .build()
         .create(CountryAndFlagsApi::class.java)
 
-    fun getData(): io.reactivex.Observable<CountriesAndFlagsModel> {
+    fun getData(): io.reactivex.Observable<CountriesFlagsModel> {
         return retrofit.getData()
     }
 }

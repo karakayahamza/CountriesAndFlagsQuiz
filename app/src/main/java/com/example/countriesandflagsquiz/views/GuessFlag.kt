@@ -1,13 +1,17 @@
 package com.example.countriesandflagsquiz.views
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
+import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
 class GuessFlag : Fragment() {
     private var _binding: FragmentGuessFlagBinding? = null
@@ -21,11 +25,10 @@ class GuessFlag : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentGuessFlagBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,13 +36,63 @@ class GuessFlag : Fragment() {
 
         viewModel.loadData()
 
+        var coutryName= ""
+
         viewModel.countriesAndFlags.observe(viewLifecycleOwner) { counrty ->
             counrty.let {
+                val countries = randomFlags()
 
-                println("Merhaba")
-                println(it!!.data[0].name)
+                binding.aOption.text = counrty!!.data[countries.elementAtOrNull(0)!!].name.toString()
+                binding.bOption.text = counrty.data[countries.elementAtOrNull(1)!!].name.toString()
+                binding.cOption.text = counrty.data[countries.elementAtOrNull(2)!!].name.toString()
+                binding.dOption.text = counrty.data[countries.elementAtOrNull(3)!!].name.toString()
 
+               val choseRandomAnswer = counrty.data[countries.random()]
+               GlideToVectorYou.justLoadImage(requireActivity(), Uri.parse(choseRandomAnswer.flag.toString()), binding.flagImage)
+                coutryName= choseRandomAnswer.name.toString()
+            }
+            binding.aOption.setOnClickListener {
+                if (binding.aOption.text==coutryName){
+                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
+                }
+            }
+            binding.bOption.setOnClickListener {
+                if (binding.bOption.text==coutryName){
+                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
+
+                }
+                else{
+                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
+                }
+            }
+            binding.cOption.setOnClickListener {
+                if (binding.cOption.text==coutryName){
+                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
+
+                }
+                else{
+                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
+                }
+            }
+            binding.dOption.setOnClickListener {
+                if (binding.dOption.text==coutryName){
+                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
+
+
+
+
+
+
+
     }
 }

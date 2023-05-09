@@ -1,59 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECF2FF"
     tools:context=".views.GuessFlag">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#E3DFFD"
+        android:orientation="vertical"
+        android:gravity="right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
+
+        <TextView
+            android:id="@+id/quest_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E5D1FA"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Correct Answers: 1"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="250dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:layout_marginBottom="100dp"
+            android:id="@+id/flagImage"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:src="@drawable/loading"
+            android:text="Question"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:scaleType="centerCrop"
+            android:translationZ="90dp"
             />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:text="A"
-                android:gravity="start"
-                android:layout_marginBottom="10dp"
-                />
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:text="B"
-                android:gravity="start"
-                android:layout_marginBottom="10dp"
-                />
-
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:text="C"
-                android:gravity="start"
-                android:layout_marginBottom="10dp"
-                />
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:gravity="start"
-                android:text="E"
-                android:layout_marginBottom="10dp"
-                />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/countdown"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#E5D1FA"
+            android:gravity="center"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:translationZ="90dp"
+            />
     </LinearLayout>
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="387dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/aOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/buttun_design"
+            android:elevation="3dp"
+            android:text="Option 1"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/buttun_design"
+            android:elevation="3dp"
+            android:text="Option 2"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/cOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/buttun_design"
+            android:elevation="3dp"
+            android:text="Option 3"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/buttun_design"
+            android:elevation="3dp"
+            android:text="Option 4"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

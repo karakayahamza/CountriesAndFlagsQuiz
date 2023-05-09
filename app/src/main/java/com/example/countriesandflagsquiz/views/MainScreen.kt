@@ -58,10 +58,6 @@ class MainScreen : Fragment() {
 
         viewModel.countriesAndFlags.observe(viewLifecycleOwner) { counrty ->
             counrty.let {
-
-                println("Merhaba")
-                println(it!!.data[0].name)
-
             }
         }
     }

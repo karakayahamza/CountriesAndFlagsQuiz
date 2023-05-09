@@ -2,7 +2,7 @@ package com.example.countriesandflagsquiz.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.countriesandflagsquiz.models.CountriesAndFlagsModel
+import com.example.countriesandflagsquiz.models.CountriesFlagsModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -12,7 +12,7 @@ class CountriesAndFlagsViewModel :ViewModel() {
     private val CountriesAndFlagsApiService =
         com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
 
-    val countriesAndFlags = MutableLiveData<CountriesAndFlagsModel?>()
+    val countriesAndFlags = MutableLiveData<CountriesFlagsModel?>()
     val error = MutableLiveData<Boolean?>()
 
     fun loadData(){
@@ -29,7 +29,7 @@ class CountriesAndFlagsViewModel :ViewModel() {
         )
     }
 
-    private fun handleResults(weatherModel: CountriesAndFlagsModel){
+    private fun handleResults(weatherModel: CountriesFlagsModel){
         countriesAndFlags.value = weatherModel
         error.value = false
     }

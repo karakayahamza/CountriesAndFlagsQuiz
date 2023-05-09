@@ -2,7 +2,7 @@ package com.example.countriesandflagsquiz.models
 
 import com.google.gson.annotations.SerializedName
 
-class CountriesAndFlagsModel(error: Boolean,msg :String,data:ArrayList<Data>) {
+class CountriesFlagsModel(error: Boolean,msg :String,data:ArrayList<Data>) {
 
     @SerializedName("error")
     var error = false
