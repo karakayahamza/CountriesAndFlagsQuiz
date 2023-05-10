@@ -13,15 +13,15 @@ import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
+
 class GuessFlag : Fragment() {
     private var _binding: FragmentGuessFlagBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: CountriesAndFlagsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,50 +49,45 @@ class GuessFlag : Fragment() {
 
                val choseRandomAnswer = counrty.data[countries.random()]
                GlideToVectorYou.justLoadImage(requireActivity(), Uri.parse(choseRandomAnswer.flag.toString()), binding.flagImage)
-                coutryName= choseRandomAnswer.name.toString()
+               coutryName= choseRandomAnswer.name.toString()
             }
-            binding.aOption.setOnClickListener {
-                if (binding.aOption.text==coutryName){
-                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
-                }
-            }
-            binding.bOption.setOnClickListener {
-                if (binding.bOption.text==coutryName){
-                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
-
-                }
-                else{
-                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
-                }
-            }
-            binding.cOption.setOnClickListener {
-                if (binding.cOption.text==coutryName){
-                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
-
-                }
-                else{
-                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
-                }
-            }
-            binding.dOption.setOnClickListener {
-                if (binding.dOption.text==coutryName){
-                    Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
-                }
-            }
+            setUpListener(coutryName)
         }
 
+    }
+    fun setUpListener(coutryName :String){
+        if (coutryName==""){
+            binding.aOption.isClickable = false
+            binding.bOption.isClickable = false
+            binding.cOption.isClickable = false
+            binding.dOption.isClickable = false
+        }
+        else{
+            binding.aOption.isClickable = true
+            binding.bOption.isClickable = true
+            binding.cOption.isClickable = true
+            binding.dOption.isClickable = true
+        }
+        binding.aOption.setOnClickListener {
+            checkAnswer(binding.aOption.text.toString(),coutryName)
+        }
+        binding.bOption.setOnClickListener {
+            checkAnswer(binding.bOption.text.toString(),coutryName)
+        }
+        binding.cOption.setOnClickListener {
+            checkAnswer(binding.cOption.text.toString(),coutryName)
+        }
+        binding.dOption.setOnClickListener {
+            checkAnswer(binding.dOption.text.toString(),coutryName)
+        }
+    }
 
-
-
-
-
-
-
+    fun checkAnswer(answer : String,coutryName:String){
+        if (answer==coutryName){
+            Toast.makeText(requireContext(),"Answer Correct",Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(requireContext(),"Answer Wrong",Toast.LENGTH_SHORT).show()
+        }
     }
 }

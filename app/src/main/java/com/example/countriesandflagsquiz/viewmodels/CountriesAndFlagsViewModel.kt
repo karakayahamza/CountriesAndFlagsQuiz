@@ -9,8 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CountriesAndFlagsViewModel :ViewModel() {
     private var compositeDisposable: CompositeDisposable? = null
-    private val CountriesAndFlagsApiService =
-        com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
+    private val CountriesAndFlagsApiService = com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
 
     val countriesAndFlags = MutableLiveData<CountriesFlagsModel?>()
     val error = MutableLiveData<Boolean?>()
