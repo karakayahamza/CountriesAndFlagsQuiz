@@ -1,13 +1,17 @@
 package com.example.countriesandflagsquiz.views
 
+import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
 import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
@@ -21,6 +25,15 @@ class GuessFlag : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.popup_layout)
+        val okButton = dialog.findViewById<Button>(R.id.ok_button)
+        okButton.setOnClickListener {
+            // Do something when the user clicks the button
+            dialog.dismiss() // Close the dialog
+        }
+        dialog.show()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +67,16 @@ class GuessFlag : Fragment() {
             setUpListener(coutryName)
         }
 
+        val timer = object: CountDownTimer(20000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+
+            }
+        }
+        timer.start()
     }
     fun setUpListener(coutryName :String){
         if (coutryName==""){

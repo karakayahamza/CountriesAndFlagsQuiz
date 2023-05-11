@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainScreen">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/mainScreen"
@@ -43,4 +43,13 @@
         android:name="com.example.countriesandflagsquiz.views.Settings"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.example.countriesandflagsquiz.views.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
 </navigation>

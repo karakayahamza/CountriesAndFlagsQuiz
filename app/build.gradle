@@ -90,6 +90,9 @@ dependencies {
 
     implementation 'com.github.2coffees1team:GlideToVectorYou:v2.0.0'
 
+    // Splash Screen
+    implementation "androidx.core:core-splashscreen:1.0.1"
+
 
     //json
     implementation 'org.json:json:20201115'

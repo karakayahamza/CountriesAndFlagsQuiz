@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">CountriesAndFlagsQuiz</string>
+    <string name="app_name">Country Connoisseur</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="guess_flag" />
+    <string name="country_connoisseur">Country Connoisseur</string>
+    <string name="credit_by_hamzakarakaya">Credit by hamzakarakaya</string>
 </resources>
