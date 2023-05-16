@@ -14,25 +14,20 @@
             android:id="@+id/action_mainScreen_to_guessFlag"
             app:destination="@id/guessFlag" />
         <action
-            android:id="@+id/action_mainScreen_to_guessCapitalOfCity"
-            app:destination="@id/guessCapitalOfCity" />
-        <action
             android:id="@+id/action_mainScreen_to_whichCountry"
             app:destination="@id/whichCountry" />
         <action
             android:id="@+id/action_mainScreen_to_settings2"
             app:destination="@id/settings2" />
+        <action
+            android:id="@+id/action_mainScreen_to_choseCountryOfCity"
+            app:destination="@id/choseCountryOfCity" />
     </fragment>
     <fragment
         android:id="@+id/guessFlag"
         android:name="com.example.countriesandflagsquiz.views.GuessFlag"
         android:label="fragment_guess_flag"
         tools:layout="@layout/fragment_guess_flag" />
-    <fragment
-        android:id="@+id/guessCapitalOfCity"
-        android:name="com.example.countriesandflagsquiz.views.GuessCapitalOfCity"
-        android:label="fragment_guess_capital_of_city"
-        tools:layout="@layout/fragment_guess_capital_of_city" />
     <fragment
         android:id="@+id/whichCountry"
         android:name="com.example.countriesandflagsquiz.views.WhichCountry"
@@ -52,4 +47,9 @@
             android:id="@+id/action_splashScreen_to_mainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/choseCountryOfCity"
+        android:name="com.example.countriesandflagsquiz.views.ChoseCountryOfCity"
+        android:label="fragment_chose_country_of_city"
+        tools:layout="@layout/fragment_chose_country_of_city" />
 </navigation>

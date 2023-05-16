@@ -18,4 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory
     fun getData(): io.reactivex.Observable<CountriesFlagsModel> {
         return retrofit.getData()
     }
+
+    fun getCapitalData():io.reactivex.Observable<CountriesFlagsModel>{
+        return retrofit.getCapitalData()
+    }
 }

@@ -9,6 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CountriesAndFlagsViewModel :ViewModel() {
     private var compositeDisposable: CompositeDisposable? = null
+    private var compositeDisposable2: CompositeDisposable? = null
     private val CountriesAndFlagsApiService = com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
 
     val countriesAndFlags = MutableLiveData<CountriesFlagsModel?>()
@@ -18,6 +19,20 @@ class CountriesAndFlagsViewModel :ViewModel() {
         compositeDisposable = CompositeDisposable()
 
         compositeDisposable?.add(CountriesAndFlagsApiService.getData()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                handleResults(it)
+            },{
+                handleError(it)
+            })
+        )
+    }
+
+    fun loadCapitalData(){
+        compositeDisposable2 = CompositeDisposable()
+
+        compositeDisposable2?.add(CountriesAndFlagsApiService.getData()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

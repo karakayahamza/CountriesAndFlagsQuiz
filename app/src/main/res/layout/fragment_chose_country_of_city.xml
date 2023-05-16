@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    tools:context=".views.ChoseCountryOfCity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SCORE: "
+        android:textSize="25dp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/flagImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/appicon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+            <Button
+                android:id="@+id/aOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:background="@drawable/buttun_design"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                />
+
+            <Button
+                android:id="@+id/bOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="B"
+                android:textSize="15sp"
+                android:background="@drawable/buttun_design"
+                android:layout_margin="5dp"
+                />
+
+            <Button
+                android:id="@+id/cOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textSize="15sp"
+                android:background="@drawable/buttun_design"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/dOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textSize="15sp"
+                android:background="@drawable/buttun_design"
+                android:layout_margin="5dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pass"
+        android:textSize="25dp"
+        />
+</LinearLayout>

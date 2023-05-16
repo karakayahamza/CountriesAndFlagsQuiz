@@ -35,7 +35,7 @@ class MainScreen : Fragment() {
         }
 
         binding.findCapitalCity.setOnClickListener {
-            val action = MainScreenDirections.actionMainScreenToGuessCapitalOfCity()
+            val action = MainScreenDirections.actionMainScreenToChoseCountryOfCity()
             Navigation.findNavController(it).navigate(action)
         }
         binding.guessCityWhichCountry.setOnClickListener {
