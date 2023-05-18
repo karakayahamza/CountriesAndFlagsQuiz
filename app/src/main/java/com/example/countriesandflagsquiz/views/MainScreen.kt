@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.work.*
 import com.example.countriesandflagsquiz.databinding.FragmentMainScreenBinding
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 
