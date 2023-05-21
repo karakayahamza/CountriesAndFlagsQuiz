@@ -9,6 +9,6 @@
     <string name="settingsicon">settingsIcon</string>
     <string name="app_slogan">More knowledge \n More fun</string>
     <string name="guess_flag_screen">Guess Flag</string>
-    <string name="guess_capitol_of_city_screen">Guess Capitol of City</string>
+    <string name="guess_capitol_of_city_screen">Guess the capitals of countries</string>
     <string name="which_country_screen">Which country?</string>
 </resources>

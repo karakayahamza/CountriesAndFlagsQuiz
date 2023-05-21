@@ -6,6 +6,5 @@ fun randomFlags(): MutableSet<Int> {
     while (randomNumbers.size < 4) {
         randomNumbers.add((1..220).random())
     }
-    //println(randomNumbers)
     return randomNumbers
 }

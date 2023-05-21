@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.system.Os.remove
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,8 @@ class ChoseCountryOfCity : Fragment() {
             loadNewQuestion()
         }
 
+
+
     }
     @SuppressLint("ResourceAsColor")
     private fun setUpListener(capitalName :String){
@@ -76,6 +79,7 @@ class ChoseCountryOfCity : Fragment() {
         binding.aOption.setOnClickListener {
             if (checkAnswer(binding.aOption.text.toString(),capitalName)){
                 binding.aOption.setBackgroundResource(R.drawable.correct_answer)
+
             }
             else binding.aOption.setBackgroundResource(R.drawable.wrong_answer)
         }
@@ -109,11 +113,21 @@ class ChoseCountryOfCity : Fragment() {
 
             binding.next.isClickable = true
 
+            binding.aOption.isClickable = false
+            binding.bOption.isClickable = false
+            binding.cOption.isClickable = false
+            binding.dOption.isClickable = false
+
             binding.next.setOnClickListener {
                 binding.aOption.setBackgroundResource(R.drawable.buttun_design)
                 binding.bOption.setBackgroundResource(R.drawable.buttun_design)
                 binding.cOption.setBackgroundResource(R.drawable.buttun_design)
                 binding.dOption.setBackgroundResource(R.drawable.buttun_design)
+
+                binding.aOption.isClickable = true
+                binding.bOption.isClickable = true
+                binding.cOption.isClickable = true
+                binding.dOption.isClickable = true
                 loadNewQuestion()
                 binding.next.isClickable = false
             }
@@ -140,7 +154,7 @@ class ChoseCountryOfCity : Fragment() {
     }
 
     fun loadNewQuestion(){
-        var capitalName=""
+        val capitalName: String
         val countries = randomFlags()
 
 
@@ -149,22 +163,56 @@ class ChoseCountryOfCity : Fragment() {
         binding.cOption.text = model.data[countries.elementAtOrNull(2)!!].capital.toString()
         binding.dOption.text = model.data[countries.elementAtOrNull(3)!!].capital.toString()
 
-        val choseRandomAnswer = model.data[countries.random()]
+        val random = countries.random()
+        val remainingNumbers = ArrayList(countries).apply { remove(random) }
+
+        val choseRandomAnswer = model.data[random]
+
+        println("INDEX")
+        println(countries.indexOf(random))
+        println(remainingNumbers.size)
+        println(countries.indexOf(remainingNumbers[0]))
+        println(countries.indexOf(remainingNumbers[1]))
+        println(countries.indexOf(remainingNumbers[2]))
+        println("INDEX")
 
 
+        binding.joker.setOnClickListener {
+            fiftyPercentJoker(countries.indexOf(remainingNumbers[0]))
+            fiftyPercentJoker(countries.indexOf(remainingNumbers[1]))
+        }
         binding.countryName.text = choseRandomAnswer.name
         capitalName= choseRandomAnswer.capital.toString()
 
-
-        println(model.data[countries.elementAtOrNull(0)!!].capital.toString()+"/"+
-                model.data[countries.elementAtOrNull(1)!!].capital.toString()+"/"+
-                model.data[countries.elementAtOrNull(2)!!].capital.toString()+"/"+
-                model.data[countries.elementAtOrNull(3)!!].capital.toString())
-
-        println(choseRandomAnswer.name+"Country")
-        println(capitalName+"Capital")
-
-
         setUpListener(capitalName)
+    }
+
+
+    fun fiftyPercentJoker(index :Int){
+        when (index) {
+            0 -> {
+                // Code to be executed when index is 0
+                binding.aOption.isClickable = false
+                binding.aOption.setBackgroundResource(R.drawable.used_joker)
+            }
+            1 -> {
+                // Code to be executed when index is 1
+                binding.bOption.isClickable = false
+                binding.bOption.setBackgroundResource(R.drawable.used_joker)
+            }
+            2 -> {
+                // Code to be executed when index is 2
+                binding.cOption.isClickable = false
+                binding.cOption.setBackgroundResource(R.drawable.used_joker)
+            }
+            3 -> {
+                // Code to be executed when index is 2
+                binding.dOption.isClickable = false
+                binding.dOption.setBackgroundResource(R.drawable.used_joker)
+            }
+            else -> {
+                println("Index is not 0, 1, or 2")
+            }
+        }
     }
 }
