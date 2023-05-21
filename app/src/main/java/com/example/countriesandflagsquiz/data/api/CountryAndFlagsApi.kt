@@ -1,6 +1,7 @@
 package com.example.countriesandflagsquiz.data.api
 
 import com.example.countriesandflagsquiz.models.CountriesFlagsModel
+import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
 import retrofit2.http.GET
 
 interface CountryAndFlagsApi {
@@ -8,5 +9,5 @@ interface CountryAndFlagsApi {
     fun getData(): io.reactivex.Observable<CountriesFlagsModel>
 
     @GET("countries/capital")
-    fun getCapitalData(): io.reactivex.Observable<CountriesFlagsModel>
+    fun getCapitalData(): io.reactivex.Observable<CountryCapitalsFlagModel>
 }

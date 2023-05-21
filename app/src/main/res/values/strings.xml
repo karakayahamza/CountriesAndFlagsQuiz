@@ -5,4 +5,10 @@
     <string name="guess_flag" />
     <string name="country_connoisseur">Country Connoisseur</string>
     <string name="credit_by_hamzakarakaya">Credit by hamzakarakaya</string>
+    <string name="empty">-</string>
+    <string name="settingsicon">settingsIcon</string>
+    <string name="app_slogan">More knowledge \n More fun</string>
+    <string name="guess_flag_screen">Guess Flag</string>
+    <string name="guess_capitol_of_city_screen">Guess Capitol of City</string>
+    <string name="which_country_screen">Which country?</string>
 </resources>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="bottom"
+    android:gravity="center"
     tools:context=".views.ChoseCountryOfCity">
 
     <TextView
+        android:id="@+id/score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SCORE: "
-        android:textSize="25dp"
         android:gravity="center"
-        />
+        android:text="SCORE: "
+        android:textSize="25dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,11 +23,19 @@
         android:layout_marginBottom="20dp"
         android:padding="15dp">
 
-        <ImageView
-            android:id="@+id/flagImage"
+        <TextView
+            android:id="@+id/countryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/appicon"/>
+            android:textSize="100sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="48sp"
+            app:autoSizeStepGranularity="2sp"
+            />
 
     </LinearLayout>
 
@@ -85,11 +93,14 @@
 
         </LinearLayout>
     </LinearLayout>
+
     <Button
-        android:id="@+id/pass"
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pass"
+        android:text="Next"
         android:textSize="25dp"
+        android:layout_marginTop="50dp"
+        android:clickable="false"
         />
 </LinearLayout>

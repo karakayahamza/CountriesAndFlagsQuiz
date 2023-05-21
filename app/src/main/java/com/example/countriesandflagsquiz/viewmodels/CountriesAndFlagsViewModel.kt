@@ -3,6 +3,7 @@ package com.example.countriesandflagsquiz.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.countriesandflagsquiz.models.CountriesFlagsModel
+import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +14,9 @@ class CountriesAndFlagsViewModel :ViewModel() {
     private val CountriesAndFlagsApiService = com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
 
     val countriesAndFlags = MutableLiveData<CountriesFlagsModel?>()
+    val countriesCapital = MutableLiveData<CountryCapitalsFlagModel?>()
     val error = MutableLiveData<Boolean?>()
+    val error2 = MutableLiveData<Boolean?>()
 
     fun loadData(){
         compositeDisposable = CompositeDisposable()
@@ -32,23 +35,33 @@ class CountriesAndFlagsViewModel :ViewModel() {
     fun loadCapitalData(){
         compositeDisposable2 = CompositeDisposable()
 
-        compositeDisposable2?.add(CountriesAndFlagsApiService.getData()
+        compositeDisposable2?.add(CountriesAndFlagsApiService.getCapitalData()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                handleResults(it)
+                handleResults2(it)
             },{
-                handleError(it)
+                handleError2(it)
             })
         )
     }
 
-    private fun handleResults(weatherModel: CountriesFlagsModel){
-        countriesAndFlags.value = weatherModel
+    private fun handleResults(countryModel: CountriesFlagsModel){
+        countriesAndFlags.value = countryModel
         error.value = false
     }
 
     private fun handleError(throwable: Throwable){
+        error.value = true
+        println(throwable.toString())
+    }
+
+    private fun handleResults2(countryModel: CountryCapitalsFlagModel){
+        countriesCapital.value = countryModel
+        error.value = false
+    }
+
+    private fun handleError2(throwable: Throwable){
         error.value = true
         println(throwable.toString())
     }

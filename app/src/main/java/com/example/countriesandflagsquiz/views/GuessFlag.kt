@@ -2,7 +2,6 @@ package com.example.countriesandflagsquiz.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
 import android.app.ProgressDialog
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +9,6 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -21,9 +19,6 @@ import com.example.countriesandflagsquiz.models.CountriesFlagsModel
 import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class GuessFlag : Fragment() {
@@ -33,7 +28,6 @@ class GuessFlag : Fragment() {
     private var score = 0
     private var condition = false
     lateinit var countDownTimer : CountDownTimer
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private lateinit var model : CountriesFlagsModel
 
 
@@ -50,9 +44,18 @@ class GuessFlag : Fragment() {
         viewModel = ViewModelProviders.of(this)[CountriesAndFlagsViewModel::class.java]
         viewModel.loadData()
 
-        val progressDialog = ProgressDialog.show(requireContext(), "Bekleyin", "İndiriliyor...", true)
-        viewModel.countriesAndFlags.observe(viewLifecycleOwner) { counrty ->
-            counrty.let {
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val progressDialog = ProgressDialog.show(requireContext(),
+            "Wait",
+            "Downloading...",
+            true)
+
+        viewModel.countriesAndFlags.observe(viewLifecycleOwner) { country ->
+            country.let {
                 model = it!!
             }
             progressDialog.dismiss()
@@ -60,22 +63,6 @@ class GuessFlag : Fragment() {
             loadNewQuestion()
         }
 
-
-        return binding.root
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.popup_layout)
-        val okButton = dialog.findViewById<Button>(R.id.ok_button)
-        okButton.setOnClickListener {
-            // Do something when the user clicks the button
-            startTimer()
-            loadNewQuestion()
-            dialog.dismiss()
-        }
-        dialog.show()*/
     }
     @SuppressLint("ResourceAsColor")
     private fun setUpListener(coutryName :String){
@@ -182,6 +169,7 @@ class GuessFlag : Fragment() {
                     Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_LONG).show()
                     val action = GuessFlagDirections.actionGuessFlagToMainScreen()
                     Navigation.findNavController(binding.root).navigate(action)
+                    onDestroy()
                 }
                 alert.show()
                 countDownTimer.cancel()
@@ -196,7 +184,7 @@ class GuessFlag : Fragment() {
     }
 
     fun loadNewQuestion(){
-        var coutryName= ""
+            var countryName=""
             val countries = randomFlags()
 
             binding.aOption.text = model.data[countries.elementAtOrNull(0)!!].name.toString()
@@ -206,10 +194,10 @@ class GuessFlag : Fragment() {
 
             val choseRandomAnswer = model.data[countries.random()]
             GlideToVectorYou.justLoadImage(requireActivity(), Uri.parse(choseRandomAnswer.flag.toString()), binding.flagImage)
-            coutryName= choseRandomAnswer.name.toString()
+            countryName= choseRandomAnswer.name.toString()
 
             countDownTimer.cancel()
             countDownTimer.start()
-            setUpListener(coutryName)
+            setUpListener(countryName)
         }
     }
