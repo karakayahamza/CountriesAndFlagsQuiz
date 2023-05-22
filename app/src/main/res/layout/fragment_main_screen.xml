@@ -25,9 +25,15 @@
             android:layout_height="130dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon"
-            android:contentDescription="@string/app_name" />
+            android:src="@drawable/icon" />
+
+        <Button
+            android:id="@+id/dark_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode" />
 
         <TextView
             android:layout_width="match_parent"

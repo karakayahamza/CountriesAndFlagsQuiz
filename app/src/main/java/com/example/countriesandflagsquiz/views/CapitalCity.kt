@@ -3,17 +3,19 @@ package com.example.countriesandflagsquiz.views
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentCapitalCityBinding
 import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
-import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 
 class CapitalCity : Fragment() {
@@ -23,8 +25,15 @@ class CapitalCity : Fragment() {
     private var score = 0
     private var condition = false
     private lateinit var model : CountryCapitalsFlagModel
+    private var max_score : Int = 0
+
+    companion object {
+        private const val SHARED_PREFS_FILE_NAME = "CAPITAL_MAX_SCORE"
+        private const val CAPITAL_MAX_SCORE_KEY_NAME = "name"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        max_score = getNameFromSharedPreferences(requireContext())
     }
 
     override fun onCreateView(
@@ -33,13 +42,13 @@ class CapitalCity : Fragment() {
     ): View {
         _binding = FragmentCapitalCityBinding.inflate(inflater, container, false)
 
-
         viewModel = ViewModelProviders.of(this)[CountriesAndFlagsViewModel::class.java]
         viewModel.loadCapitalData()
 
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,8 +64,7 @@ class CapitalCity : Fragment() {
             progressDialog.dismiss()
             loadNewQuestion()
         }
-
-
+        binding.score.text = "Max Score: $max_score Correct Answers: $score"
 
     }
     @SuppressLint("ResourceAsColor")
@@ -108,7 +116,7 @@ class CapitalCity : Fragment() {
         if (answer==capitalName){
             score += 1
             condition = true
-            binding.score.text = "Correct Answers: $score"
+            binding.score.text = "Max Score: $max_score Correct Answers: $score"
 
             binding.next.isClickable = true
 
@@ -133,7 +141,7 @@ class CapitalCity : Fragment() {
         }
         else{
             condition = false
-            binding.score.text = "Correct Answers: $score"
+            binding.score.text = "Max score: $max_score Correct Answers: $score"
 
             val alert = AlertDialog.Builder(requireContext())
             alert.setTitle("Correct Answer: $capitalName \n Score: $score \n Game Over")
@@ -148,11 +156,15 @@ class CapitalCity : Fragment() {
                 onDestroy()
             }
             alert.show()
+
+            if (getNameFromSharedPreferences(requireContext())<score){
+                saveNameToSharedPreferences(requireContext(),score)
+            }
         }
         return condition
     }
 
-    fun loadNewQuestion(){
+    private fun loadNewQuestion(){
         val capitalName: String
         val countries = randomFlags()
 
@@ -167,14 +179,6 @@ class CapitalCity : Fragment() {
 
         val choseRandomAnswer = model.data[random]
 
-        println("INDEX")
-        println(countries.indexOf(random))
-        println(remainingNumbers.size)
-        println(countries.indexOf(remainingNumbers[0]))
-        println(countries.indexOf(remainingNumbers[1]))
-        println(countries.indexOf(remainingNumbers[2]))
-        println("INDEX")
-
 
         binding.joker.setOnClickListener {
             fiftyPercentJoker(countries.indexOf(remainingNumbers[0]))
@@ -186,8 +190,7 @@ class CapitalCity : Fragment() {
         setUpListener(capitalName)
     }
 
-
-    fun fiftyPercentJoker(index :Int){
+    private fun fiftyPercentJoker(index :Int){
         when (index) {
             0 -> {
                 // Code to be executed when index is 0
@@ -213,5 +216,32 @@ class CapitalCity : Fragment() {
                 println("Index is not 0, 1, or 2")
             }
         }
+    }
+
+    private fun saveNameToSharedPreferences(context: Context, name: Int) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(CAPITAL_MAX_SCORE_KEY_NAME, name)
+        editor.apply()
+    }
+
+    private fun getNameFromSharedPreferences(context: Context): Int {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        return (sharedPreferences.getInt(CAPITAL_MAX_SCORE_KEY_NAME, 0) ?: "") as Int
+    }
+
+    private fun randomFlags(): MutableSet<Int> {
+        val randomNumbers = mutableSetOf<Int>()
+        while (randomNumbers.size < 4) {
+            randomNumbers.add((1..220).random())
+        }
+        return randomNumbers
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }

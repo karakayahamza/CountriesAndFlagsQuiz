@@ -3,6 +3,8 @@ package com.example.countriesandflagsquiz.views
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -16,7 +18,6 @@ import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
 import com.example.countriesandflagsquiz.models.CountriesFlagsModel
-import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
@@ -30,7 +31,10 @@ class GuessFlag : Fragment() {
     lateinit var countDownTimer : CountDownTimer
     private lateinit var model : CountriesFlagsModel
 
-
+    companion object {
+        private const val SHARED_PREFS_FILE_NAME = "GUESS_FLAG_MAX_SCORE"
+        private const val GUESS_FLAG_SCORE_KEY_NAME = "name"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -200,4 +204,31 @@ class GuessFlag : Fragment() {
             countDownTimer.start()
             setUpListener(countryName)
         }
+
+    fun saveNameToSharedPreferences(context: Context, name: Int) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(GUESS_FLAG_SCORE_KEY_NAME, name)
+        editor.apply()
     }
+
+    fun getNameFromSharedPreferences(context: Context): Int {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        return (sharedPreferences.getInt(GUESS_FLAG_SCORE_KEY_NAME, 0) ?: "") as Int
+    }
+    fun randomFlags(): MutableSet<Int> {
+        val randomNumbers = mutableSetOf<Int>()
+        while (randomNumbers.size < 4) {
+            randomNumbers.add((1..220).random())
+        }
+        return randomNumbers
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer.cancel()
+    }
+
+}
