@@ -51,11 +51,11 @@
 
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="1dp"
         android:background="#FFFFFF"
-        android:columnCount="2"
+        android:columnCount="3"
         android:padding="20dp"
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,30 +112,6 @@
                 tools:layout_editor_absoluteY="118dp" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="0dp">
-
-            <Button
-                android:id="@+id/guess_city_which_country"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@drawable/buttun_design"
-                android:text="@string/which_country_screen"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints,TextSizeCheck"
-                tools:layout_editor_absoluteY="118dp" />
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
@@ -155,7 +131,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/buttun_design"
                 android:contentDescription="@string/settingsicon"
-                android:padding="50dp"
+                android:padding="20dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/settings" />
         </androidx.cardview.widget.CardView>

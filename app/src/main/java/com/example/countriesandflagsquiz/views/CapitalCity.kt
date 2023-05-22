@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.system.Os.remove
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
-import com.example.countriesandflagsquiz.databinding.FragmentChoseCountryOfCityBinding
+import com.example.countriesandflagsquiz.databinding.FragmentCapitalCityBinding
 import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
 import com.example.countriesandflagsquiz.randomFlags
 import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
 
-class ChoseCountryOfCity : Fragment() {
-    private var _binding: FragmentChoseCountryOfCityBinding? = null
+class CapitalCity : Fragment() {
+    private var _binding: FragmentCapitalCityBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: CountriesAndFlagsViewModel
     private var score = 0
@@ -32,7 +31,7 @@ class ChoseCountryOfCity : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChoseCountryOfCityBinding.inflate(inflater, container, false)
+        _binding = FragmentCapitalCityBinding.inflate(inflater, container, false)
 
 
         viewModel = ViewModelProviders.of(this)[CountriesAndFlagsViewModel::class.java]
@@ -144,7 +143,7 @@ class ChoseCountryOfCity : Fragment() {
                 loadNewQuestion()
             }
             alert.setNegativeButton("No") { _, _ ->
-                val action = ChoseCountryOfCityDirections.actionChoseCountryOfCityToMainScreen()
+                val action = CapitalCityDirections.actionCapitalCityToMainScreen()
                 Navigation.findNavController(binding.root).navigate(action)
                 onDestroy()
             }

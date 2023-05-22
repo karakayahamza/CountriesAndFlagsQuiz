@@ -14,14 +14,11 @@
             android:id="@+id/action_mainScreen_to_guessFlag"
             app:destination="@id/guessFlag" />
         <action
-            android:id="@+id/action_mainScreen_to_whichCountry"
-            app:destination="@id/whichCountry" />
-        <action
             android:id="@+id/action_mainScreen_to_settings2"
             app:destination="@id/settings2" />
         <action
-            android:id="@+id/action_mainScreen_to_choseCountryOfCity"
-            app:destination="@id/choseCountryOfCity" />
+            android:id="@+id/action_mainScreen_to_capitalCity"
+            app:destination="@id/capitalCity" />
     </fragment>
     <fragment
         android:id="@+id/guessFlag"
@@ -30,15 +27,6 @@
         tools:layout="@layout/fragment_guess_flag" >
         <action
             android:id="@+id/action_guessFlag_to_mainScreen"
-            app:destination="@id/mainScreen" />
-    </fragment>
-    <fragment
-        android:id="@+id/whichCountry"
-        android:name="com.example.countriesandflagsquiz.views.WhichCountry"
-        android:label="fragment_which_country"
-        tools:layout="@layout/fragment_which_country" >
-        <action
-            android:id="@+id/action_whichCountry_to_mainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
     <fragment
@@ -60,12 +48,12 @@
             app:destination="@id/mainScreen" />
     </fragment>
     <fragment
-        android:id="@+id/choseCountryOfCity"
-        android:name="com.example.countriesandflagsquiz.views.ChoseCountryOfCity"
-        android:label="fragment_chose_country_of_city"
-        tools:layout="@layout/fragment_chose_country_of_city" >
+        android:id="@+id/capitalCity"
+        android:name="com.example.countriesandflagsquiz.views.CapitalCity"
+        android:label="fragment_capital_city"
+        tools:layout="@layout/fragment_capital_city" >
         <action
-            android:id="@+id/action_choseCountryOfCity_to_mainScreen"
+            android:id="@+id/action_capitalCity_to_mainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
 </navigation>

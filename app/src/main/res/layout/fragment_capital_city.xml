@@ -7,11 +7,22 @@
     android:background="#ECF2FF"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".views.ChoseCountryOfCity">
+    tools:context=".views.CapitalCity">
+
+    <Button
+        android:id="@+id/joker2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/buttun_design"
+        android:text="2 Chance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
     <TextView
         android:id="@+id/score"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="SCORE: "
@@ -25,6 +36,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="91dp"
         android:padding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,24 +118,23 @@
         android:id="@+id/next"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
         android:background="@drawable/buttun_design"
         android:clickable="false"
         android:text="Next"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/joker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
-        android:text="joker"
+        android:background="@drawable/buttun_design"
+        android:text="%50 Joker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

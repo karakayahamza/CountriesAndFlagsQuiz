@@ -16,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
         .build()
         .create(CountryAndFlagsApi::class.java)
 
+
+
     fun getData(): io.reactivex.Observable<CountriesFlagsModel> {
         return retrofit.getData()
     }
@@ -23,4 +25,5 @@ import retrofit2.converter.gson.GsonConverterFactory
     fun getCapitalData():io.reactivex.Observable<CountryCapitalsFlagModel>{
         return retrofit.getCapitalData()
     }
+
 }
