@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#FAF7F0"
-    tools:context=".views.SplashScreen">
+    tools:context=".presentation.views.SplashScreen">
 
 
     <LinearLayout

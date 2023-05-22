@@ -7,7 +7,7 @@
     android:background="#ECF2FF"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".views.CapitalCity">
+    tools:context=".presentation.views.CapitalCity">
 
     <Button
         android:id="@+id/joker2"
@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:textSize="40sp"
             app:autoSizeMaxTextSize="80sp"
-            app:autoSizeMinTextSize="40sp"
+            app:autoSizeMinTextSize="24sp"
             app:autoSizeStepGranularity="2sp"
             app:autoSizeTextType="uniform" />
 

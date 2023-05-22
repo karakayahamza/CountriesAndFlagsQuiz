@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.views
+package com.example.countriesandflagsquiz.presentation.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,18 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentMainScreenBinding
-import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.views.MainScreenDirections
 
 class MainScreen : Fragment() {
     private var _binding: FragmentMainScreenBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,18 +37,6 @@ class MainScreen : Fragment() {
             val action = MainScreenDirections.actionMainScreenToSettings2()
             Navigation.findNavController(it).navigate(action)
         }
-
-        /*binding.darkMode.setOnClickListener {
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                context?.theme?.applyStyle(R.style.CountryTheme_NoActionBar_DarkMode, true)
-            } else {
-                context?.theme?.applyStyle(R.style.CountryTheme_NoActionBar, true)
-            }
-        }*/
-
-        println(CapitalCity.toString())
-
-        println(GuessFlag.toString())
         return view
     }
 }

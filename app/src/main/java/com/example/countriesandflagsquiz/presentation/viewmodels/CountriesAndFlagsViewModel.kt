@@ -1,9 +1,9 @@
-package com.example.countriesandflagsquiz.viewmodels
+package com.example.countriesandflagsquiz.presentation.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.countriesandflagsquiz.models.CountriesFlagsModel
-import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
+import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
+import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

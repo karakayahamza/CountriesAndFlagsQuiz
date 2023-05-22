@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.models
+package com.example.countriesandflagsquiz.data.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.views
+package com.example.countriesandflagsquiz.presentation.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -17,8 +17,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
-import com.example.countriesandflagsquiz.models.CountriesFlagsModel
-import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
+import com.example.countriesandflagsquiz.presentation.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.views.GuessFlagDirections
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
 

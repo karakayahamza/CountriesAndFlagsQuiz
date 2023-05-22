@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.models
+package com.example.countriesandflagsquiz.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,7 +10,7 @@ class CountryCapitalsFlagModel(error: Boolean,msg :String,data:ArrayList<Data>) 
     @SerializedName("msg")
     var msg: String?
     @SerializedName("data")
-    var data: ArrayList<CountryCapitalsFlagModel.Data>
+    var data: ArrayList<Data>
 
     class Data {
         var name: String? = null

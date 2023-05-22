@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.views
+package com.example.countriesandflagsquiz.presentation.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -10,22 +10,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.databinding.FragmentCapitalCityBinding
-import com.example.countriesandflagsquiz.models.CountryCapitalsFlagModel
-import com.example.countriesandflagsquiz.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
+import com.example.countriesandflagsquiz.presentation.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.views.CapitalCityDirections
 
 class CapitalCity : Fragment() {
     private var _binding: FragmentCapitalCityBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: CountriesAndFlagsViewModel
     private var score = 0
-    private var condition = false
     private lateinit var model : CountryCapitalsFlagModel
-    private var max_score : Int = 0
+    private var maxScore : Int = 0
 
     companion object {
         private const val SHARED_PREFS_FILE_NAME = "CAPITAL_MAX_SCORE"
@@ -33,7 +32,7 @@ class CapitalCity : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        max_score = getNameFromSharedPreferences(requireContext())
+        maxScore = getNameFromSharedPreferences(requireContext())
     }
 
     override fun onCreateView(
@@ -64,11 +63,10 @@ class CapitalCity : Fragment() {
             progressDialog.dismiss()
             loadNewQuestion()
         }
-        binding.score.text = "Max Score: $max_score Correct Answers: $score"
-
+        binding.score.text = "Max Score: $maxScore Correct Answers: $score"
     }
     @SuppressLint("ResourceAsColor")
-    private fun setUpListener(capitalName :String){
+    fun setUpListener(capitalName :String){
         if (capitalName==""){
             binding.aOption.isClickable = false
             binding.bOption.isClickable = false
@@ -84,86 +82,44 @@ class CapitalCity : Fragment() {
 
 
         binding.aOption.setOnClickListener {
-            if (checkAnswer(binding.aOption.text.toString(),capitalName)){
+            if (handleAnswer(binding.aOption.text.toString(),capitalName)){
                 binding.aOption.setBackgroundResource(R.drawable.correct_answer)
-
             }
             else binding.aOption.setBackgroundResource(R.drawable.wrong_answer)
+
+            println(binding.aOption.text)
         }
         binding.bOption.setOnClickListener {
-            if (checkAnswer(binding.bOption.text.toString(),capitalName)){
+            if (handleAnswer(binding.bOption.text.toString(),capitalName)){
                 binding.bOption.setBackgroundResource(R.drawable.correct_answer)
             }
             else binding.bOption.setBackgroundResource(R.drawable.wrong_answer)
+
+            println(binding.bOption.text)
         }
         binding.cOption.setOnClickListener {
-            if (checkAnswer(binding.cOption.text.toString(),capitalName)){
+            if (handleAnswer(binding.cOption.text.toString(),capitalName)){
                 binding.cOption.setBackgroundResource(R.drawable.correct_answer)
             }
             else binding.cOption.setBackgroundResource(R.drawable.wrong_answer)
+
+            println(binding.cOption.text)
         }
         binding.dOption.setOnClickListener {
-            if (checkAnswer(binding.dOption.text.toString(),capitalName)){
+            if (handleAnswer(binding.dOption.text.toString(),capitalName)){
                 binding.dOption.setBackgroundResource(R.drawable.correct_answer)
             }
             else binding.dOption.setBackgroundResource(R.drawable.wrong_answer)
+
+            println(binding.dOption.text)
+        }
+
+        binding.next.setOnClickListener {
+            resetOptions()
+            loadNewQuestion()
+            binding.next.isClickable = false
         }
     }
-
-    @SuppressLint("SetTextI18n")
-    fun checkAnswer(answer : String, capitalName:String):Boolean{
-
-        if (answer==capitalName){
-            score += 1
-            condition = true
-            binding.score.text = "Max Score: $max_score Correct Answers: $score"
-
-            binding.next.isClickable = true
-
-            binding.aOption.isClickable = false
-            binding.bOption.isClickable = false
-            binding.cOption.isClickable = false
-            binding.dOption.isClickable = false
-
-            binding.next.setOnClickListener {
-                binding.aOption.setBackgroundResource(R.drawable.buttun_design)
-                binding.bOption.setBackgroundResource(R.drawable.buttun_design)
-                binding.cOption.setBackgroundResource(R.drawable.buttun_design)
-                binding.dOption.setBackgroundResource(R.drawable.buttun_design)
-
-                binding.aOption.isClickable = true
-                binding.bOption.isClickable = true
-                binding.cOption.isClickable = true
-                binding.dOption.isClickable = true
-                loadNewQuestion()
-                binding.next.isClickable = false
-            }
-        }
-        else{
-            condition = false
-            binding.score.text = "Max score: $max_score Correct Answers: $score"
-
-            val alert = AlertDialog.Builder(requireContext())
-            alert.setTitle("Correct Answer: $capitalName \n Score: $score \n Game Over")
-            alert.setMessage("Try Again?")
-            alert.setPositiveButton("Yes") { _, _ ->
-                score = 0
-                loadNewQuestion()
-            }
-            alert.setNegativeButton("No") { _, _ ->
-                val action = CapitalCityDirections.actionCapitalCityToMainScreen()
-                Navigation.findNavController(binding.root).navigate(action)
-                onDestroy()
-            }
-            alert.show()
-
-            if (getNameFromSharedPreferences(requireContext())<score){
-                saveNameToSharedPreferences(requireContext(),score)
-            }
-        }
-        return condition
-    }
-
     private fun loadNewQuestion(){
         val capitalName: String
         val countries = randomFlags()
@@ -213,18 +169,12 @@ class CapitalCity : Fragment() {
                 binding.dOption.setBackgroundResource(R.drawable.used_joker)
             }
             else -> {
-                println("Index is not 0, 1, or 2")
+                println("Index is not 0, 1, 2 or 3")
             }
         }
     }
 
-    private fun saveNameToSharedPreferences(context: Context, name: Int) {
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt(CAPITAL_MAX_SCORE_KEY_NAME, name)
-        editor.apply()
-    }
+
 
     private fun getNameFromSharedPreferences(context: Context): Int {
         val sharedPreferences: SharedPreferences =
@@ -240,8 +190,73 @@ class CapitalCity : Fragment() {
         return randomNumbers
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun handleAnswer(answer: String, capitalName: String): Boolean {
+        val result : Boolean
+        if (answer == capitalName) {
+            binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
+            binding.next.isClickable = true
+            disableOptions()
+            result = true
+        } else {
+            showGameOverDialog(capitalName)
+            result = false
+        }
+        return result
+    }
+    private fun disableOptions() {
+        binding.aOption.isClickable = false
+        binding.bOption.isClickable = false
+        binding.cOption.isClickable = false
+        binding.dOption.isClickable = false
+    }
+    private fun enableOptions() {
+        binding.aOption.isClickable = true
+        binding.bOption.isClickable = true
+        binding.cOption.isClickable = true
+        binding.dOption.isClickable = true
+    }
+    private fun showGameOverDialog(capitalName:String) {
+        val alert = AlertDialog.Builder(requireContext())
+        alert.setTitle("Game Over")
+            .setMessage("Correct Answer: ${capitalName}\nScore: $score\nTry Again?")
+            .setPositiveButton("Yes") { _, _ ->
+                score = 0
+                loadNewQuestion()
+            }
+            .setNegativeButton("No") { _, _ ->
+                val action = CapitalCityDirections.actionCapitalCityToMainScreen()
+                Navigation.findNavController(binding.root).navigate(action)
+                onDestroy()
+            }
+            .show()
+
+        if (getHighScore(requireContext()) < score) {
+            saveHighScore(requireContext(),score)
+        }
+    }
+    private fun resetOptions() {
+        binding.aOption.setBackgroundResource(R.drawable.buttun_design)
+        binding.bOption.setBackgroundResource(R.drawable.buttun_design)
+        binding.cOption.setBackgroundResource(R.drawable.buttun_design)
+        binding.dOption.setBackgroundResource(R.drawable.buttun_design)
+        enableOptions()
+    }
+    fun getHighScore(context: Context): Int {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        return (sharedPreferences.getInt(CAPITAL_MAX_SCORE_KEY_NAME, 0) ?: "") as Int
+    }
+
+    fun saveHighScore(context: Context,score: Int) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(CAPITAL_MAX_SCORE_KEY_NAME, score)
+        editor.apply()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
     }
 }

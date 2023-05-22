@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".views.MainScreen">
+    tools:context=".presentation.views.MainScreen">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -28,12 +28,6 @@
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@drawable/icon" />
-
-        <Button
-            android:id="@+id/dark_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dark Mode" />
 
         <TextView
             android:layout_width="match_parent"
