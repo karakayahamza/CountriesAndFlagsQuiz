@@ -1,17 +1,17 @@
-package com.example.countriesandflagsquiz.presentation.viewmodels
+package com.example.countriesandflagsquiz.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
 import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
+import com.example.countriesandflagsquiz.data.repository.CountryRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class CountriesAndFlagsViewModel :ViewModel() {
+class CountriesAndFlagsViewModel(private val countryRepository: CountryRepository) :ViewModel() {
     private var compositeDisposable: CompositeDisposable? = null
     private var compositeDisposable2: CompositeDisposable? = null
-    private val CountriesAndFlagsApiService = com.example.countriesandflagsquiz.data.entities.CountriesAndFlagsApiService()
 
     val countriesAndFlags = MutableLiveData<CountriesFlagsModel?>()
     val countriesCapital = MutableLiveData<CountryCapitalsFlagModel?>()
@@ -21,7 +21,7 @@ class CountriesAndFlagsViewModel :ViewModel() {
     fun loadData(){
         compositeDisposable = CompositeDisposable()
 
-        compositeDisposable?.add(CountriesAndFlagsApiService.getData()
+        compositeDisposable?.add(countryRepository.getFlagData()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -35,13 +35,13 @@ class CountriesAndFlagsViewModel :ViewModel() {
     fun loadCapitalData(){
         compositeDisposable2 = CompositeDisposable()
 
-        compositeDisposable2?.add(CountriesAndFlagsApiService.getCapitalData()
+        compositeDisposable2?.add(countryRepository.getCapitalData()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                handleResults2(it)
+                handleCapitaCity(it)
             },{
-                handleError2(it)
+                handleErrorCapitalCity(it)
             })
         )
     }
@@ -56,13 +56,13 @@ class CountriesAndFlagsViewModel :ViewModel() {
         println(throwable.toString())
     }
 
-    private fun handleResults2(countryModel: CountryCapitalsFlagModel){
+    private fun handleCapitaCity(countryModel: CountryCapitalsFlagModel){
         countriesCapital.value = countryModel
         error.value = false
     }
 
-    private fun handleError2(throwable: Throwable){
-        error.value = true
+    private fun handleErrorCapitalCity(throwable: Throwable){
+        error2.value = true
         println(throwable.toString())
     }
 }

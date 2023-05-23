@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.example.countriesandflagsquiz.presentation.views.MainScreen"
+        android:name="com.example.countriesandflagsquiz.ui.views.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/guessFlag"
-        android:name="com.example.countriesandflagsquiz.presentation.views.GuessFlag"
+        android:name="com.example.countriesandflagsquiz.ui.views.GuessFlag"
         android:label="fragment_guess_flag"
         tools:layout="@layout/fragment_guess_flag" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/settings2"
-        android:name="com.example.countriesandflagsquiz.presentation.views.Settings"
+        android:name="com.example.countriesandflagsquiz.ui.views.Settings"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.example.countriesandflagsquiz.presentation.views.SplashScreen"
+        android:name="com.example.countriesandflagsquiz.ui.views.SplashScreen"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/capitalCity"
-        android:name="com.example.countriesandflagsquiz.presentation.views.CapitalCity"
+        android:name="com.example.countriesandflagsquiz.ui.views.CapitalCity"
         android:label="fragment_capital_city"
         tools:layout="@layout/fragment_capital_city" >
         <action

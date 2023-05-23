@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.presentation.views
+package com.example.countriesandflagsquiz.ui.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

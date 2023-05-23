@@ -1,4 +1,4 @@
-package com.example.countriesandflagsquiz.presentation.views
+package com.example.countriesandflagsquiz.ui.views
 
 import android.annotation.SuppressLint
 import android.os.Bundle

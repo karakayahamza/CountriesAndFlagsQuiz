@@ -1,38 +1,41 @@
-package com.example.countriesandflagsquiz.presentation.views
+package com.example.countriesandflagsquiz.ui.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
+import com.example.countriesandflagsquiz.data.api.ApiServiceFactory
 import com.example.countriesandflagsquiz.databinding.FragmentCapitalCityBinding
 import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
-import com.example.countriesandflagsquiz.presentation.viewmodels.CountriesAndFlagsViewModel
-import com.example.countriesandflagsquiz.views.CapitalCityDirections
+import com.example.countriesandflagsquiz.data.repository.CountryRepository
+import com.example.countriesandflagsquiz.helpers.getHighScore
+import com.example.countriesandflagsquiz.helpers.loadNewQuestion
+import com.example.countriesandflagsquiz.helpers.saveHighScore
+import com.example.countriesandflagsquiz.ui.viewmodels.CountriesAndFlagsViewModel
 
 class CapitalCity : Fragment() {
     private var _binding: FragmentCapitalCityBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: CountriesAndFlagsViewModel
+    private lateinit var countryViewModel: CountriesAndFlagsViewModel
     private var score = 0
     private lateinit var model : CountryCapitalsFlagModel
     private var maxScore : Int = 0
 
     companion object {
         private const val SHARED_PREFS_FILE_NAME = "CAPITAL_MAX_SCORE"
-        private const val CAPITAL_MAX_SCORE_KEY_NAME = "name"
+        private const val KEY_NAME = "name_CAPİTAL"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        maxScore = getNameFromSharedPreferences(requireContext())
+        maxScore = getHighScore(requireContext(),SHARED_PREFS_FILE_NAME,
+            KEY_NAME)
     }
 
     override fun onCreateView(
@@ -41,8 +44,11 @@ class CapitalCity : Fragment() {
     ): View {
         _binding = FragmentCapitalCityBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProviders.of(this)[CountriesAndFlagsViewModel::class.java]
-        viewModel.loadCapitalData()
+        val apiService = ApiServiceFactory.create()
+        val quizRepository = CountryRepository(apiService)
+        countryViewModel = CountriesAndFlagsViewModel(quizRepository)
+
+        countryViewModel.loadCapitalData()
 
         return binding.root
     }
@@ -56,30 +62,23 @@ class CapitalCity : Fragment() {
             "Downloading...",
             true)
 
-        viewModel.countriesCapital.observe(viewLifecycleOwner) { country ->
+        countryViewModel.countriesCapital.observe(viewLifecycleOwner) { country ->
             country.let {
                 model = it!!
             }
             progressDialog.dismiss()
-            loadNewQuestion()
+            setUpListener(loadNewQuestion(model,binding))
         }
         binding.score.text = "Max Score: $maxScore Correct Answers: $score"
     }
     @SuppressLint("ResourceAsColor")
     fun setUpListener(capitalName :String){
         if (capitalName==""){
-            binding.aOption.isClickable = false
-            binding.bOption.isClickable = false
-            binding.cOption.isClickable = false
-            binding.dOption.isClickable = false
+            disableOptions()
         }
         else{
-            binding.aOption.isClickable = true
-            binding.bOption.isClickable = true
-            binding.cOption.isClickable = true
-            binding.dOption.isClickable = true
+            enableOptions()
         }
-
 
         binding.aOption.setOnClickListener {
             if (handleAnswer(binding.aOption.text.toString(),capitalName)){
@@ -116,78 +115,9 @@ class CapitalCity : Fragment() {
 
         binding.next.setOnClickListener {
             resetOptions()
-            loadNewQuestion()
+            setUpListener(loadNewQuestion(model,binding))
             binding.next.isClickable = false
         }
-    }
-    private fun loadNewQuestion(){
-        val capitalName: String
-        val countries = randomFlags()
-
-
-        binding.aOption.text = model.data[countries.elementAtOrNull(0)!!].capital.toString()
-        binding.bOption.text = model.data[countries.elementAtOrNull(1)!!].capital.toString()
-        binding.cOption.text = model.data[countries.elementAtOrNull(2)!!].capital.toString()
-        binding.dOption.text = model.data[countries.elementAtOrNull(3)!!].capital.toString()
-
-        val random = countries.random()
-        val remainingNumbers = ArrayList(countries).apply { remove(random) }
-
-        val choseRandomAnswer = model.data[random]
-
-
-        binding.joker.setOnClickListener {
-            fiftyPercentJoker(countries.indexOf(remainingNumbers[0]))
-            fiftyPercentJoker(countries.indexOf(remainingNumbers[1]))
-        }
-        binding.countryName.text = choseRandomAnswer.name
-        capitalName= choseRandomAnswer.capital.toString()
-
-        setUpListener(capitalName)
-    }
-
-    private fun fiftyPercentJoker(index :Int){
-        when (index) {
-            0 -> {
-                // Code to be executed when index is 0
-                binding.aOption.isClickable = false
-                binding.aOption.setBackgroundResource(R.drawable.used_joker)
-            }
-            1 -> {
-                // Code to be executed when index is 1
-                binding.bOption.isClickable = false
-                binding.bOption.setBackgroundResource(R.drawable.used_joker)
-            }
-            2 -> {
-                // Code to be executed when index is 2
-                binding.cOption.isClickable = false
-                binding.cOption.setBackgroundResource(R.drawable.used_joker)
-            }
-            3 -> {
-                // Code to be executed when index is 2
-                binding.dOption.isClickable = false
-                binding.dOption.setBackgroundResource(R.drawable.used_joker)
-            }
-            else -> {
-                println("Index is not 0, 1, 2 or 3")
-            }
-        }
-    }
-
-
-
-    private fun getNameFromSharedPreferences(context: Context): Int {
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
-        return (sharedPreferences.getInt(CAPITAL_MAX_SCORE_KEY_NAME, 0) ?: "") as Int
-    }
-
-    private fun randomFlags(): MutableSet<Int> {
-        val randomNumbers = mutableSetOf<Int>()
-        while (randomNumbers.size < 4) {
-            randomNumbers.add((1..220).random())
-        }
-        return randomNumbers
     }
 
     @SuppressLint("SetTextI18n")
@@ -222,7 +152,7 @@ class CapitalCity : Fragment() {
             .setMessage("Correct Answer: ${capitalName}\nScore: $score\nTry Again?")
             .setPositiveButton("Yes") { _, _ ->
                 score = 0
-                loadNewQuestion()
+                setUpListener(loadNewQuestion(model,binding))
             }
             .setNegativeButton("No") { _, _ ->
                 val action = CapitalCityDirections.actionCapitalCityToMainScreen()
@@ -231,8 +161,8 @@ class CapitalCity : Fragment() {
             }
             .show()
 
-        if (getHighScore(requireContext()) < score) {
-            saveHighScore(requireContext(),score)
+        if (getHighScore(requireContext(), SHARED_PREFS_FILE_NAME, KEY_NAME) < score) {
+            saveHighScore(requireContext(),score, SHARED_PREFS_FILE_NAME, KEY_NAME)
         }
     }
     private fun resetOptions() {
@@ -241,19 +171,6 @@ class CapitalCity : Fragment() {
         binding.cOption.setBackgroundResource(R.drawable.buttun_design)
         binding.dOption.setBackgroundResource(R.drawable.buttun_design)
         enableOptions()
-    }
-    fun getHighScore(context: Context): Int {
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
-        return (sharedPreferences.getInt(CAPITAL_MAX_SCORE_KEY_NAME, 0) ?: "") as Int
-    }
-
-    fun saveHighScore(context: Context,score: Int) {
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt(CAPITAL_MAX_SCORE_KEY_NAME, score)
-        editor.apply()
     }
 
     override fun onDestroy() {

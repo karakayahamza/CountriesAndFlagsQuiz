@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECF2FF"
-    tools:context=".presentation.views.GuessFlag">
+    tools:context=".ui.views.GuessFlag">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -23,7 +24,7 @@
         tools:ignore="RtlHardcoded">
 
         <TextView
-            android:id="@+id/quest_no"
+            android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FAF7F0"
@@ -39,16 +40,16 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_margin="16dp"
+            android:adjustViewBounds="true"
             android:gravity="center"
+            android:importantForAccessibility="no"
+            android:scaleType="centerInside"
             android:src="@drawable/loading"
             android:text="@string/empty"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:translationZ="90dp"
-            android:importantForAccessibility="no" />
+            android:translationZ="90dp" />
 
         <TextView
             android:id="@+id/countdown"
@@ -71,14 +72,14 @@
         android:id="@+id/linearLayout3"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="6dp"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="1"
-        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.916">
 
         <Button

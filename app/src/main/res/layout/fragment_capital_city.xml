@@ -7,7 +7,7 @@
     android:background="#ECF2FF"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".presentation.views.CapitalCity">
+    tools:context=".ui.views.CapitalCity">
 
     <Button
         android:id="@+id/joker2"

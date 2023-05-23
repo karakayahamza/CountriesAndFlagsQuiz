@@ -11,7 +11,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.views.MainActivity"
+            android:name=".ui.views.MainActivity"
             android:exported="true"
             >
             <intent-filter>
