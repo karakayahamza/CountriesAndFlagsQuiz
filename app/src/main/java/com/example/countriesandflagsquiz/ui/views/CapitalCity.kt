@@ -135,16 +135,16 @@ class CapitalCity : Fragment() {
         return result
     }
     private fun disableOptions() {
-        binding.aOption.isClickable = false
-        binding.bOption.isClickable = false
-        binding.cOption.isClickable = false
-        binding.dOption.isClickable = false
+        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        for (button in buttonArray) {
+            button.isClickable = false
+        }
     }
     private fun enableOptions() {
-        binding.aOption.isClickable = true
-        binding.bOption.isClickable = true
-        binding.cOption.isClickable = true
-        binding.dOption.isClickable = true
+        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        for (button in buttonArray) {
+            button.isClickable = true
+        }
     }
     private fun showGameOverDialog(capitalName:String) {
         val alert = AlertDialog.Builder(requireContext())
@@ -166,10 +166,12 @@ class CapitalCity : Fragment() {
         }
     }
     private fun resetOptions() {
-        binding.aOption.setBackgroundResource(R.drawable.buttun_design)
-        binding.bOption.setBackgroundResource(R.drawable.buttun_design)
-        binding.cOption.setBackgroundResource(R.drawable.buttun_design)
-        binding.dOption.setBackgroundResource(R.drawable.buttun_design)
+        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        val buttonDesign = R.drawable.buttun_design
+
+        for (button in buttonArray) {
+            button.setBackgroundResource(buttonDesign)
+        }
         enableOptions()
     }
 

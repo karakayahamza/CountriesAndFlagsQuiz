@@ -30,7 +30,6 @@ class GuessFlag : Fragment() {
     private val binding get() = _binding!!
     private lateinit var countryViewModel: CountriesAndFlagsViewModel
     private var score = 0
-    private var condition = false
     lateinit var countDownTimer : CountDownTimer
     private lateinit var model : CountriesFlagsModel
     private var maxScore : Int = 0
@@ -86,57 +85,38 @@ class GuessFlag : Fragment() {
     }
     @SuppressLint("ResourceAsColor")
     private fun setUpListener(countryName :String){
-        binding.aOption.setOnClickListener {
+       /* binding.aOption.setOnClickListener {
             if (handleAnswer(binding.aOption.text.toString(),countryName)){
-                binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
-                flashGreenLights()
-                setUpListener(loadNewQuestion(model,binding,countDownTimer))
+                nextQuestion()
             }
-            else{
-                showGameOverDialog(countryName)
-                countDownTimer.cancel()
-                disableOptions()
-                flashRedLights()
-            }
+            else showGameOverDialog(countryName)
         }
         binding.bOption.setOnClickListener {
-
             if (handleAnswer(binding.bOption.text.toString(),countryName)){
-                binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
-                flashGreenLights()
-                setUpListener(loadNewQuestion(model,binding,countDownTimer))
+                nextQuestion()
             }
-            else{
-                showGameOverDialog(countryName)
-                countDownTimer.cancel()
-                disableOptions()
-                flashRedLights()
-            }
+            else showGameOverDialog(countryName)
         }
         binding.cOption.setOnClickListener {
             if (handleAnswer(binding.cOption.text.toString(),countryName)){
-                binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
-                flashGreenLights()
-                setUpListener(loadNewQuestion(model,binding,countDownTimer))
+                nextQuestion()
             }
-            else{
-                showGameOverDialog(countryName)
-                countDownTimer.cancel()
-                disableOptions()
-                flashRedLights()
-            }
+            else showGameOverDialog(countryName)
         }
         binding.dOption.setOnClickListener {
             if (handleAnswer(binding.dOption.text.toString(),countryName)){
-                binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
-                flashGreenLights()
-                setUpListener(loadNewQuestion(model,binding,countDownTimer))
+                nextQuestion()
             }
-            else{
-                showGameOverDialog(countryName)
-                countDownTimer.cancel()
-                disableOptions()
-                flashRedLights()
+            else showGameOverDialog(countryName)
+        }*/
+
+        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        for (button in buttonArray) {
+            button.setOnClickListener {
+                if (handleAnswer(button.text.toString(),countryName)){
+                    nextQuestion()
+                }
+                else showGameOverDialog(countryName)
             }
         }
     }
@@ -146,7 +126,18 @@ class GuessFlag : Fragment() {
         return answer==countryName
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun nextQuestion(){
+        binding.score.text = "Max Score: $maxScore Correct Answers: ${++score}"
+        flashGreenLights()
+        setUpListener(loadNewQuestion(model,binding,countDownTimer))
+    }
+
+
     private fun showGameOverDialog(capitalName:String) {
+        countDownTimer.cancel()
+        disableOptions()
+        flashRedLights()
         val alert = AlertDialog.Builder(requireContext())
         alert.setTitle("Game Over")
             .setMessage("Correct Answer: ${capitalName}\nScore: $score\nTry Again?")
@@ -199,10 +190,10 @@ class GuessFlag : Fragment() {
         countDownTimer.cancel()
     }
     private fun disableOptions() {
-        binding.aOption.isClickable = false
-        binding.bOption.isClickable = false
-        binding.cOption.isClickable = false
-        binding.dOption.isClickable = false
+        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        for (button in buttonArray) {
+            button.isClickable = false
+        }
     }
     private fun flashGreenLights() {
         // Left edge
