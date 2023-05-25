@@ -11,10 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.data.api.ApiServiceFactory
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
 import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
@@ -25,6 +23,7 @@ import com.example.countriesandflagsquiz.helpers.saveHighScore
 import com.example.countriesandflagsquiz.ui.viewmodels.CountriesAndFlagsViewModel
 
 
+@Suppress("DEPRECATION")
 class GuessFlag : Fragment() {
     private var _binding: FragmentGuessFlagBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +31,7 @@ class GuessFlag : Fragment() {
     private var score = 0
     lateinit var countDownTimer : CountDownTimer
     private lateinit var model : CountriesFlagsModel
-    private var maxScore : Int = 0
+    private var maxScore = 0
 
 
     private lateinit var decorView: ViewGroup
@@ -133,7 +132,6 @@ class GuessFlag : Fragment() {
         setUpListener(loadNewQuestion(model,binding,countDownTimer))
     }
 
-
     private fun showGameOverDialog(capitalName:String) {
         countDownTimer.cancel()
         disableOptions()
@@ -165,17 +163,15 @@ class GuessFlag : Fragment() {
                 alert.setMessage("Try Again?")
                 alert.setPositiveButton("Yes") { _, _ ->
                     startTimer()
-                    setUpListener(com.example.countriesandflagsquiz.helpers.loadNewQuestion(model,binding,countDownTimer))
+                    setUpListener(loadNewQuestion(model,binding,countDownTimer))
                 }
                 alert.setNegativeButton("No") { _, _ ->
-                    Toast.makeText(requireContext(), "Game Over", Toast.LENGTH_LONG).show()
                     val action = GuessFlagDirections.actionGuessFlagToMainScreen()
                     Navigation.findNavController(binding.root).navigate(action)
                     onDestroy()
                 }
                 alert.show()
                 countDownTimer.cancel()
-                Toast.makeText(requireContext(),"Time is Over",Toast.LENGTH_SHORT).show()
             }
 
             @SuppressLint("SetTextI18n")

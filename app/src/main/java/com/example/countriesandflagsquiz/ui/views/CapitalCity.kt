@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.data.api.ApiServiceFactory
@@ -26,6 +27,8 @@ class CapitalCity : Fragment() {
     private var score = 0
     private lateinit var model : CountryCapitalsFlagModel
     private var maxScore : Int = 0
+    private var buttonArray : Array<Button> = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+    private val buttonDesign = R.drawable.buttun_design
 
     companion object {
         private const val SHARED_PREFS_FILE_NAME = "CAPITAL_MAX_SCORE"
@@ -80,7 +83,7 @@ class CapitalCity : Fragment() {
             enableOptions()
         }
 
-        binding.aOption.setOnClickListener {
+        /*binding.aOption.setOnClickListener {
             if (handleAnswer(binding.aOption.text.toString(),capitalName)){
                 binding.aOption.setBackgroundResource(R.drawable.correct_answer)
             }
@@ -111,6 +114,15 @@ class CapitalCity : Fragment() {
             else binding.dOption.setBackgroundResource(R.drawable.wrong_answer)
 
             println(binding.dOption.text)
+        }*/
+
+        for (button in buttonArray) {
+            button.setOnClickListener {
+                if (handleAnswer(button.text.toString(),capitalName)){
+                    button.setBackgroundResource(R.drawable.correct_answer)
+                }
+                else button.setBackgroundResource(R.drawable.wrong_answer)
+            }
         }
 
         binding.next.setOnClickListener {
@@ -135,13 +147,11 @@ class CapitalCity : Fragment() {
         return result
     }
     private fun disableOptions() {
-        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
         for (button in buttonArray) {
             button.isClickable = false
         }
     }
     private fun enableOptions() {
-        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
         for (button in buttonArray) {
             button.isClickable = true
         }
@@ -166,9 +176,6 @@ class CapitalCity : Fragment() {
         }
     }
     private fun resetOptions() {
-        val buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
-        val buttonDesign = R.drawable.buttun_design
-
         for (button in buttonArray) {
             button.setBackgroundResource(buttonDesign)
         }
