@@ -3,8 +3,14 @@ package com.example.countriesandflagsquiz.helpers
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.net.Uri
 import android.os.CountDownTimer
+import android.os.Handler
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.countriesandflagsquiz.R
 import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
 import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
@@ -104,3 +110,54 @@ private fun fiftyPercentJoker(index :Int,binding: FragmentCapitalCityBinding){
         }
     }
 }
+fun setAnswerCheckLight(context: Context,decorView: ViewGroup,color: Int) {
+    var setColor = Color.GREEN
+
+    if (color == Color.GREEN){
+        setColor = Color.GREEN
+    }
+    else setColor = Color.RED
+
+
+
+    // Left edge
+    val leftLights = View(context)
+    leftLights.setBackgroundColor(setColor)
+    val leftParams = FrameLayout.LayoutParams(20, ViewGroup.LayoutParams.MATCH_PARENT)
+    leftParams.marginStart = 0
+    decorView.addView(leftLights, leftParams)
+
+    // Right edge
+    val rightLights = View(context)
+    rightLights.setBackgroundColor(setColor)
+    val rightParams = FrameLayout.LayoutParams(20, ViewGroup.LayoutParams.MATCH_PARENT)
+    rightParams.width = 20
+    rightParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+    rightParams.marginStart = decorView.width - 20
+    decorView.addView(rightLights, rightParams)
+
+    // Top edge
+    val topLights = View(context)
+    topLights.setBackgroundColor(setColor)
+    val topParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20)
+    topParams.topMargin = 0
+    decorView.addView(topLights, topParams)
+
+    // Bottom edge
+    val bottomLights = View(context)
+    bottomLights.setBackgroundColor(setColor)
+    val bottomParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20)
+    bottomParams.height = 20
+    bottomParams.topMargin = decorView.height - 20
+    decorView.addView(bottomLights, bottomParams)
+
+
+    Handler().postDelayed({
+        decorView.removeView(leftLights)
+        decorView.removeView(rightLights)
+        decorView.removeView(topLights)
+        decorView.removeView(bottomLights)
+    }, 1000)
+}
+
+

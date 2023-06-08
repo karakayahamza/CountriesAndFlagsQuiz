@@ -17,7 +17,8 @@ class MainScreen : Fragment() {
     private var _binding: FragmentMainScreenBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var quizViewModel: CountriesAndFlagsViewModel
+    //private lateinit var quizViewModel: CountriesAndFlagsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -43,9 +44,7 @@ class MainScreen : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
 
-
-
-        val apiService = ApiServiceFactory.create()
+        /*/val apiService = ApiServiceFactory.create()
         val quizRepository = CountryRepository(apiService)
         quizViewModel = CountriesAndFlagsViewModel(quizRepository)
 
@@ -60,7 +59,7 @@ class MainScreen : Fragment() {
 
 
             println("Hello")
-        })
+        })*/
 
 
         return view
