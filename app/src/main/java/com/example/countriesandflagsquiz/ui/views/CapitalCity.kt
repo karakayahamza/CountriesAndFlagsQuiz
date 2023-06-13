@@ -7,7 +7,6 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -195,6 +194,8 @@ class CapitalCity : Fragment() {
         val capitalName: String
         val countries = randomFlags()
 
+
+
         binding.aOption.text = model.data[countries.elementAtOrNull(0)!!].capital.toString()
         binding.bOption.text = model.data[countries.elementAtOrNull(1)!!].capital.toString()
         binding.cOption.text = model.data[countries.elementAtOrNull(2)!!].capital.toString()
@@ -242,5 +243,11 @@ class CapitalCity : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        progressBar.visibility =View.GONE
     }
 }
