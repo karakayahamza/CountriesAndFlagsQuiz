@@ -2,8 +2,8 @@ package com.example.countriesandflagsquiz.ui.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
@@ -22,6 +22,8 @@ import com.example.countriesandflagsquiz.data.api.ApiServiceFactory
 import com.example.countriesandflagsquiz.data.model.CountryCapitalsFlagModel
 import com.example.countriesandflagsquiz.data.repository.CountryRepository
 import com.example.countriesandflagsquiz.databinding.FragmentCapitalCityBinding
+import com.example.countriesandflagsquiz.helpers.Constants.KEY_NAME
+import com.example.countriesandflagsquiz.helpers.Constants.SHARED_PREFS_FILE_NAME
 import com.example.countriesandflagsquiz.ui.viewmodels.CountriesAndFlagsViewModel
 
 class CapitalCity : Fragment() {
@@ -35,10 +37,6 @@ class CapitalCity : Fragment() {
     private var score = 0
     private lateinit var progressBar: ProgressBar
 
-    companion object {
-        private const val SHARED_PREFS_FILE_NAME = "CAPITAL_MAX_SCORE"
-        private const val KEY_NAME = "name_CAPİTAL"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +86,7 @@ class CapitalCity : Fragment() {
             progressBar.visibility = View.GONE
             setUpListener(loadNewQuestion(model, binding))
         }
-        buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
+        buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption,binding.joker,binding.joker2)
         binding.score.text = "Max Score: $maxScore Correct Answers: $score"
     }
 
@@ -136,19 +134,28 @@ class CapitalCity : Fragment() {
     }
 
     private fun showGameOverDialog(capitalName: String) {
-        val alert = AlertDialog.Builder(requireContext())
-        alert.setTitle("Game Over")
-            .setMessage("Correct Answer: $capitalName\nScore: $score\nTry Again?")
-            .setPositiveButton("Yes") { _, _ ->
-                score = 0
-                setUpListener(loadNewQuestion(model, binding))
-            }
-            .setNegativeButton("No") { _, _ ->
-                val action = CapitalCityDirections.actionCapitalCityToMainScreen()
-                Navigation.findNavController(binding.root).navigate(action)
-                onDestroy()
-            }
-            .show()
+        val action = CapitalCityDirections.actionCapitalCityToMainScreen()
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("<GAME OVER>")
+        alertDialogBuilder.setMessage("Correct Answer: $capitalName \nDo you want to try again?")
+        alertDialogBuilder.setCancelable(false)
+
+        alertDialogBuilder.setPositiveButton("Yes") { _: DialogInterface, _: Int ->
+            score = 0
+            setUpListener(loadNewQuestion(model, binding))
+            resetOptions()
+        }
+
+        alertDialogBuilder.setNegativeButton("No") { _: DialogInterface, _: Int ->
+            Navigation.findNavController(binding.root).navigate(action)
+            onDestroy()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+
 
         if (getHighScore(requireContext()) < score) {
             saveHighScore(requireContext(), score)
@@ -231,6 +238,7 @@ class CapitalCity : Fragment() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
