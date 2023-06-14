@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -35,7 +36,8 @@ class CapitalCity : Fragment() {
     private var maxScore: Int = 0
     private var score = 0
     private lateinit var progressBar: ProgressBar
-
+    lateinit var correct: MediaPlayer
+    lateinit var gameover: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,9 @@ class CapitalCity : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCapitalCityBinding.inflate(inflater, container, false)
+
+        correct = MediaPlayer.create(requireContext(), R.raw.correct)
+        gameover = MediaPlayer.create(requireContext(), R.raw.gameover)
 
         progressBar = ProgressBar(requireContext())
         progressBar.isIndeterminate = true
@@ -96,11 +101,18 @@ class CapitalCity : Fragment() {
         } else {
             setOptionsEnabled(true)
         }
+
         for (button in buttonArray) {
             button.setOnClickListener {
                 if (handleAnswer(button.text.toString(), capitalName)) {
                     button.setBackgroundResource(R.drawable.correct_answer)
-                } else button.setBackgroundResource(R.drawable.wrong_answer)
+                    correct.seekTo(0)
+                    correct.start()
+                } else{
+                    button.setBackgroundResource(R.drawable.wrong_answer)
+                    gameover.seekTo(0)
+                    gameover.start()
+                }
             }
         }
 
@@ -144,17 +156,17 @@ class CapitalCity : Fragment() {
             score = 0
             setUpListener(loadNewQuestion(model, binding))
             resetOptions()
+            gameover.pause()
         }
-
         alertDialogBuilder.setNegativeButton("No") { _: DialogInterface, _: Int ->
             Navigation.findNavController(binding.root).navigate(action)
             onDestroy()
+            gameover.reset()
+            correct.reset()
         }
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
-
-
 
         if (getHighScore(requireContext()) < score) {
             saveHighScore(requireContext(), score)
@@ -193,8 +205,6 @@ class CapitalCity : Fragment() {
     private fun loadNewQuestion(model: CountryCapitalsFlagModel, binding: FragmentCapitalCityBinding): String {
         val capitalName: String
         val countries = randomFlags()
-
-
 
         binding.aOption.text = model.data[countries.elementAtOrNull(0)!!].capital.toString()
         binding.bOption.text = model.data[countries.elementAtOrNull(1)!!].capital.toString()
