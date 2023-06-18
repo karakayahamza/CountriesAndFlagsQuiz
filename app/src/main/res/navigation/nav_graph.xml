@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreen">
+    app:startDestination="@id/questionDisplay">
 
     <fragment
         android:id="@+id/mainScreen"
@@ -56,4 +56,9 @@
             android:id="@+id/action_capitalCity_to_mainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/questionDisplay"
+        android:name="com.example.countriesandflagsquiz.ui.views.QuestionDisplay"
+        android:label="fragment_question_display"
+        tools:layout="@layout/fragment_question_display" />
 </navigation>

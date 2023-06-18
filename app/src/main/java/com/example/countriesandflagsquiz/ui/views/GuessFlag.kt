@@ -19,13 +19,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.countriesandflagsquiz.data.api.ApiServiceFactory
 import com.example.countriesandflagsquiz.data.model.CountriesFlagsModel
+import com.example.countriesandflagsquiz.data.model.TriviaModel
 import com.example.countriesandflagsquiz.data.repository.CountryRepository
 import com.example.countriesandflagsquiz.databinding.FragmentGuessFlagBinding
 import com.example.countriesandflagsquiz.helpers.randomFlags
 import com.example.countriesandflagsquiz.ui.viewmodels.CountriesAndFlagsViewModel
+import com.example.countriesandflagsquiz.ui.viewmodels.TriviaViewModel
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
 
@@ -34,7 +37,12 @@ class GuessFlag : Fragment() {
     private var _binding: FragmentGuessFlagBinding? = null
     private val binding get() = _binding!!
     private lateinit var countryViewModel: CountriesAndFlagsViewModel
+    private lateinit var triviaViewModel: TriviaViewModel
     private lateinit var model : CountriesFlagsModel
+    private lateinit var triviaModel: TriviaModel
+    private lateinit var results: ArrayList<TriviaModel.Result>
+
+
     private lateinit var decorView: ViewGroup
     lateinit var countDownTimer : CountDownTimer
     private var maxScore = 0
@@ -59,9 +67,17 @@ class GuessFlag : Fragment() {
         val apiService = ApiServiceFactory.create()
         val quizRepository = CountryRepository(apiService)
 
+
         countryViewModel = CountriesAndFlagsViewModel(quizRepository)
 
         countryViewModel.loadData()
+
+
+        triviaViewModel = ViewModelProviders.of(this)[TriviaViewModel::class.java]
+
+        triviaViewModel.loadTriviaData(10,9,"easy","multiple")
+
+
 
         maxScore = getHighScore(requireContext(), SHARED_PREFS_FILE_NAME, GUESS_FLAG_SCORE_KEY_NAME)
 
@@ -88,6 +104,29 @@ class GuessFlag : Fragment() {
         binding.score.text = "Max Score: $maxScore Correct Answers: $score"
         buttonArray = arrayOf(binding.aOption, binding.bOption, binding.cOption, binding.dOption)
 
+
+        triviaViewModel.trivia.observe(viewLifecycleOwner){ trivia ->
+            trivia.let {
+                triviaModel = it!!
+
+                results = triviaModel.results!!
+
+                println("hererererrere")
+
+                println(triviaModel.response_code)
+
+
+                println(triviaModel.results!![5].type.toString())
+
+
+                println(triviaModel.results!![0].correct_answer.toString())
+
+                for(i in results){
+                    println(i.question.toString())
+                }
+
+            }
+        }
     }
     @SuppressLint("ResourceAsColor")
     private fun setUpListener(countryName :String){

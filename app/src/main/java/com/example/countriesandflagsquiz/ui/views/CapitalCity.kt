@@ -32,7 +32,7 @@ class CapitalCity : Fragment() {
     private lateinit var buttonArray: Array<Button>
     private lateinit var countryViewModel: CountriesAndFlagsViewModel
     private lateinit var model: CountryCapitalsFlagModel
-    private val buttonDesign = R.drawable.buttun_design
+    private val buttonDesign = R.drawable.button_design
     private var maxScore: Int = 0
     private var score = 0
     private lateinit var progressBar: ProgressBar

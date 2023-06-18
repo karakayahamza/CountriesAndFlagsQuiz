@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
-        android:background="@drawable/buttun_design"
+        android:background="@drawable/button_design"
         android:text="2 Chance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/buttun_design"
+                android:background="@drawable/button_design"
                 android:text="A"
                 android:textSize="25sp" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/buttun_design"
+                android:background="@drawable/button_design"
                 android:text="B"
                 android:textSize="25sp" />
 
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/buttun_design"
+                android:background="@drawable/button_design"
                 android:text="C"
                 android:textSize="25sp" />
 
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/buttun_design"
+                android:background="@drawable/button_design"
                 android:text="D"
                 android:textSize="25sp" />
 
@@ -119,7 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
-        android:background="@drawable/buttun_design"
+        android:background="@drawable/button_design"
         android:clickable="false"
         android:text="Next"
         android:textSize="25dp"
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/buttun_design"
+        android:background="@drawable/button_design"
         android:text="%50 Joker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
