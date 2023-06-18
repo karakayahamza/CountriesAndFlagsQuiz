@@ -1,5 +1,6 @@
 package com.example.countriesandflagsquiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -18,6 +19,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         strokeWidth = 8f
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -33,7 +35,8 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
 
         // İlerleme çizgisini çiz
         val progressPaint = Paint(circlePaint).apply {
-            color = Color.GREEN
+            //Color
+            color = Color.RED
         }
         canvas.drawArc(
             centerX - radius,

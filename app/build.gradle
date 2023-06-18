@@ -97,4 +97,8 @@ dependencies {
     //json
     implementation 'org.json:json:20201115'
 
+
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
