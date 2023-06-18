@@ -36,7 +36,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         // İlerleme çizgisini çiz
         val progressPaint = Paint(circlePaint).apply {
             //Color
-            color = Color.RED
+            color = Color.parseColor("#ECF2FF")
         }
         canvas.drawArc(
             centerX - radius,
