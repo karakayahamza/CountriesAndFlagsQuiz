@@ -11,4 +11,10 @@
     <string name="guess_flag_screen">Guess Flag</string>
     <string name="guess_capitol_of_city_screen">Guess the capitals of countries</string>
     <string name="which_country_screen">Which country?</string>
+    <string name="username">Username</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign-in</string>
+    <string name="sign_out">Sign-out</string>
+    <string name="created_by_user">Created by user</string>
 </resources>
